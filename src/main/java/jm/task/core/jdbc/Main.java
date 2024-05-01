@@ -20,35 +20,22 @@ public class Main {
         // реализуйте алгоритм здесь
         UserServiceImpl userService = new UserServiceImpl();
         User user = new User();
-
         Util util = new Util();
 
-        userService.removeTaskDatabase();
-        userService.createTaskDatabase();
-        userService.connectTaskDatabase();
-        //userService.createUsersTable();
-
-//        util.myUpdate("DROP DATABASE IF EXISTS d_z1;");
-//        util.myUpdate("CREATE DATABASE d_z1;");
-//        util.myUpdate("USE d_z1;");
-     //   util.myUpdate("DROP TABLE IF EXISTS users;");
-        //       util.myUpdate("CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT UNIQUE, name VARCHAR(50) NOT NULL UNIQUE, lastName VARCHAR(50) NOT NULL UNIQUE, age INT NOT NULL);");
-
-
+        //5. Удаление таблицы
         userService.dropUsersTable();
+        System.out.println("1. Создание таблицы User(ов)\n");
         userService.createUsersTable();
+        System.out.println("2. Добавление 4 User(ов) в таблицу с данными на свой выбор. После каждого добавления должен быть вывод в консоль ( User с именем – name добавлен в базу данных )");
         userService.saveUser("Ivan", "Ivanov", (byte) 10);
         userService.saveUser("Fedor","Fedorov", (byte) 20);
         userService.saveUser("Maria","Ivanova", (byte) 30);
         userService.saveUser("Pert","Petrov", (byte) 40);
-
-
-//        List<User> userList =
-//        userList.forEach(System.out::println);
-
-//        Util util = new Util();
-//        User user = new User("Max","Butus", (byte) 12);
-//        util.testSetConnectionURL(user);
-
+        System.out.println("\n+ Удаление User по id");
+        userService.removeUserById(3);
+        System.out.println("\n//3. Получение всех User из базы и вывод в консоль ( должен быть переопределен toString в классе User)");
+        userService.getAllUsers().forEach(System.out::println);
+        System.out.println("\n4. Очистка таблицы User(ов) (работает)");
+        userService.cleanUsersTable();
     }
 }

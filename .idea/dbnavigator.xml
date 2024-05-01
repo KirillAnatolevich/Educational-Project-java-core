@@ -25,9 +25,7 @@ select * from orders;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="6c170eba-64d6-4464-9da2-90dc124ac1b1" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="6c170eba-64d6-4464-9da2-90dc124ac1b1" />
