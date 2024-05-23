@@ -29,7 +29,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable(){
         try {
-            util.myUpdate("CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT UNIQUE, name VARCHAR(50) NOT NULL UNIQUE, lastName VARCHAR(50) NOT NULL UNIQUE, age INT NOT NULL);");
+            util.myUpdate("CREATE TABLE users(id BIGSERIAL NOT NULL PRIMARY KEY UNIQUE, name VARCHAR(50) NOT NULL UNIQUE, lastName VARCHAR(50) NOT NULL UNIQUE, age INT NOT NULL);");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,31 +61,17 @@ public class UserDaoJDBCImpl implements UserDao {
             throw new RuntimeException(e);
         }
     }
-
-    public List<User> getAllUsers() {
+        public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (ResultSet resultSetCount = util.myQuery("select count(*) from users;");ResultSet resultSet = util.myQuery("select id from users;")){
-            int[] size;
-            int indexSise = 0;
-            if (resultSetCount.next()) {
-                size = new int[resultSetCount.getInt("count(*)")];
-                while (resultSet.next()) {
-                    size[indexSise] = resultSet.getInt(1);
-                    indexSise++;
-                }
-                for (int i = 1; i <= size.length; i++) {
-                    ResultSet resultSetUser = util.myQuery(String.format("select * from users where id = %d;", size[i-1]));
-                    while (resultSetUser.next()) {
+        try (ResultSet resultSetCount = util.myQuery("select * from users;");ResultSet resultSet = util.myQuery("select id from users;")){
+                    while (resultSetCount.next()) {
                         User user = new User();
-                        user.setId((long) resultSetUser.getInt("id"));
-                        user.setName(resultSetUser.getString("name"));
-                        user.setLastName(resultSetUser.getString("lastName"));
-                        user.setAge((byte) resultSetUser.getInt("age"));
+                        user.setId((long) resultSetCount.getInt("id"));
+                        user.setName(resultSetCount.getString("name"));
+                        user.setLastName(resultSetCount.getString("lastName"));
+                        user.setAge((byte) resultSetCount.getInt("age"));
                         userList.add(user);
                     }
-                    resultSetUser.close();
-                }
-            }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
