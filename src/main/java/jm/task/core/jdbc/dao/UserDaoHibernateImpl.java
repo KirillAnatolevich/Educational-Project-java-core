@@ -1,14 +1,10 @@
 package jm.task.core.jdbc.dao;
 
-//import com.mysql.jdbc.Util;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.hibernate.query.sql.internal.SQLQueryParser;
 
-import java.sql.SQLException;
+import org.hibernate.query.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
